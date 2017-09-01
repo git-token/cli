@@ -3,6 +3,6 @@
 const program = require('commander');
 
 program
-  .version('0.0.14')
-	.command('serve', 'GitToken Service Providers')
+  .command('signer', 'GitToken Signer Provider')
 	.parse(process.argv);
+

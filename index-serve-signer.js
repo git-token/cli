@@ -15,6 +15,8 @@ program
 
 let signerIpcPath, recover, dirPath, web3Provider;
 
+!program.env ? null : require('dotenv').config({ path: program.env })
+
 if (!program.env) {
   if (!program.web3) {
     console.log('Web3 Provider Missing! Exiting...')
@@ -41,8 +43,8 @@ if (!program.env) {
       SIGNER_IPC_PATH
   `)
 
-  require('dotenv').config({ path: program.env })
   recover = process.env['RECOVER_KEYSTORE'] == 'true' ? true : false;
+  recover = program.init == true ? false : true;
   dirPath = process.env['KEYSTORE_DIR_PATH'];
   web3Provider = process.env['WEB3_PROVIDER'];
   signerIpcPath = process.env['SIGNER_IPC_PATH'];

@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.11.0",
+    "dotenv": "^4.0.0",
     "gittoken-signer": "0.0.7"
   }
 }
