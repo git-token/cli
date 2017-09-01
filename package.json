@@ -1,8 +1,10 @@
 {
   "name": "git-token",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "GitToken CLI Program",
-  "bin": { "git-token": "./index.js" },
+  "bin": {
+    "git-token": "./index.js"
+  },
   "scripts": {
     "test": "mocha"
   },
