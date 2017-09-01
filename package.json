@@ -1,0 +1,21 @@
+{
+  "name": "git-token",
+  "version": "0.0.1",
+  "description": "GitToken CLI Program",
+  "bin": { "git-token": "./index.js" },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "GitToken",
+    "Ethereum",
+    "ERC20",
+    "Token",
+    "Git"
+  ],
+  "author": "Ryan Tate <ryan.tate@gittoken.io>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.11.0"
+  }
+}
