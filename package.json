@@ -1,6 +1,6 @@
 {
   "name": "git-token",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "GitToken CLI Program",
   "bin": {
     "git-token": "./index.js",
