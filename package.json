@@ -1,10 +1,10 @@
 {
   "name": "git-token",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "GitToken CLI Program",
   "bin": {
     "git-token": "./index.js",
-		"git-token-signer": "./index-signer.js"
+    "git-token-signer": "./index-signer.js"
   },
   "scripts": {
     "test": "mocha"
@@ -19,6 +19,7 @@
   "author": "Ryan Tate <ryan.tate@gittoken.io>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.11.0"
+    "commander": "^2.11.0",
+    "gittoken-signer": "0.0.5"
   }
 }
