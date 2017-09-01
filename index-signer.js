@@ -10,5 +10,6 @@ program
     opts.forEach(function(opt) {
       console.log('opt', opt)
     })
-  })
-	.parse(process.argv);
+  });
+
+program.parse(process.argv);
