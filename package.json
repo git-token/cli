@@ -1,6 +1,6 @@
 {
   "name": "git-token",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "GitToken CLI Program",
   "bin": {
     "git-token": "./index.js",
@@ -21,6 +21,6 @@
   "dependencies": {
     "commander": "^2.11.0",
     "dotenv": "^4.0.0",
-    "gittoken-signer": "0.0.7"
+    "gittoken-signer": "0.0.9"
   }
 }
