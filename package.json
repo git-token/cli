@@ -1,12 +1,12 @@
 {
   "name": "git-token",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "GitToken CLI Program",
   "bin": {
     "git-token": "./index.js",
     "git-token-serve": "./index-serve.js",
     "git-token-serve-signer": "./index-serve-signer.js",
-    "git-token-serve-webhook": "./index-serve-webook.js"
+    "git-token-serve-webhook": "./index-serve-webhook.js"
   },
   "scripts": {
     "test": "mocha"
