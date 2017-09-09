@@ -5,11 +5,11 @@ const GitTokenSigner = require('gittoken-signer').default;
 const { exec } = require('child_process');
 
 program
-  .option('-h, --host <host>', 'IPv4 Host Address (e.g. 127.0.0.1)')
-  .option('-u, --user <user>', 'SSH User of the Host')
-  .option('-pk, --sshKey <ssh private key>', 'Path to local SSH private key to authorize user on host')
-  .option('-n, --name <name>', 'Name of host machine')
-  .option('-e --env <Environmental Vairable Path>', 'Environmental variables file path')
+  .option('-H, --host <host>', 'IPv4 Host Address (e.g. 127.0.0.1)')
+  .option('-U, --user <user>', 'SSH User of the Host')
+  .option('-Pk, --sshKey <ssh private key>', 'Path to local SSH private key to authorize user on host')
+  .option('-N, --name <name>', 'Name of host machine')
+  .option('-E --env <Environmental Vairable Path>', 'Environmental variables file path')
   .parse(process.argv);
 
 let host,user,sshKey,name;
