@@ -41,6 +41,10 @@ if (!program.env) {
       KEYSTORE_DIR_PATH
       WEB3_PROVIDER
       SIGNER_IPC_PATH
+      MYSQL_HOST
+      MYSQL_USER
+      MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE
   `)
 
   recover = process.env['RECOVER_KEYSTORE'] == 'true' ? true : false;

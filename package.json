@@ -1,12 +1,16 @@
 {
   "name": "git-token",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "GitToken CLI Program",
   "bin": {
-    "git-token": "./index.js",
-    "git-token-serve": "./index-serve.js",
-    "git-token-serve-signer": "./index-serve-signer.js",
-    "git-token-serve-webhook": "./index-serve-webhook.js"
+    "git-token": "./commands/index.js",
+    "git-token-setup": "./setup/index.js",
+    "git-token-configure": "./commands/configure/index.js",
+    "git-token-configure-signer": "./commands/configure/signer.js",
+    "git-token-configure-webhook": "./commands/configure/webhook.js",
+    "git-token-deploy": "./commands/deploy/index.js",
+    "git-token-deploy-signer": "./commands/deploy/signer.js",
+    "git-token-deploy-webhook": "./commands/deploy/webhook.js"
   },
   "scripts": {
     "test": "mocha"

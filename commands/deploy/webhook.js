@@ -32,11 +32,22 @@ if (!program.env) {
   } else if (!program.signerIpcPath) {
     console.error('GitToken Signer Path Missing! Exiting...')
     process.exit(1)
+  } else if (
+    !program.mysqlHost ||
+    !program.mysqlUser ||
+    !program.mysqlRootPassword ||
+    !program.mysqlDatabase
+  ) {
+    console.error('MySql Configuration Missing! Exiting...')
   } else {
-    port          = program.port
-    logDBPath     = program.logDBPath
-    signerIpcPath = program.signerIpcPath
+    port = program.port
     recoveryShare = program.recoveryShare
+    signerIpcPath = program.signerIpcPath
+    logDBPath = program.logDBPath
+    mysqlHost = program.mysqlHost
+    mysqlUser = program.mysqlUser
+    mysqlRootPassword = program.mysqlRootPassword
+    mysqlDatabase = program.mysqlDatabase
   }
 } else {
   console.log(`
@@ -46,15 +57,23 @@ if (!program.env) {
       RECOVERY_SHARE
       SIGNER_IPC_PATH
       LOG_DB_PATH
+      MYSQL_HOST
+      MYSQL_USER
+      MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE
   `)
 
   port = process.env['WEBHOOK_MANAGER_PORT'];
-  logDBPath = process.env['LOG_DB_PATH'];
   recoveryShare = process.env['RECOVERY_SHARE'];
   signerIpcPath = process.env['SIGNER_IPC_PATH'];
+  logDBPath = process.env['LOG_DB_PATH'];
+  mysqlHost = process.env['MYSQL_HOST'];
+  mysqlUser = process.env['MYSQL_USER'];
+  mysqlRootPassword = process.env['MYSQL_ROOT_PASSWORD'];
+  mysqlDatabase = process.env['MYSQL_DATABASE'];
 }
 
-// Run the signer
+// Run the program
 const webhook = new GitTokenWebHookManager({
   port,
   logDBPath,
