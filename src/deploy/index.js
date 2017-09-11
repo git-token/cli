@@ -9,8 +9,8 @@ let variables = {}
 
 inquirer.prompt(options['services']).then((answer) => {
   return nextService(answer.service, {})
-}).then((answer) => {
-  console.log('answer', answer)
+}).then(() => {
+  console.log('variables', variables)
 }).catch((error) => {
   console.log(error)
 })
@@ -22,9 +22,20 @@ function nextService(serviceList, envs) {
     if (serviceList.length == 0 || !options[s]) {
       resolve(null)
     }
-    inquirer.prompt(options[s](envs)).then((answer) => {
+
+    if (s) {
+      console.log(`
+        Inquiring about service: ${s}
+      `)
+    }
+
+    const prompt = inquirer.createPromptModule()
+
+    prompt(options[s](envs)).then((answer) => {
       variables = Object.assign(variables, answer)
-      resolve(nextService(serviceList, variables))
+      return nextService(serviceList, variables)
+    }).then(() => {
+      resolve(true)
     }).catch((error) => {
       reject(error)
     })

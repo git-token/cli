@@ -82,7 +82,6 @@ const recover = ({ option }) => {
 }
 
 module.exports = (options) => {
-  console.log('options', options)
   return [
     signerIpcPath({ option: options['signerIpcPath'] }),
     dirPath({ option: options['dirPath'] }),

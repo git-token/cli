@@ -25,7 +25,7 @@ const signerIpcPath = ({ option }) => {
   return {
     type: 'input',
     name: 'signerIpcPath',
-    message: 'Please enter path for GitToken signer IPC socket:',
+    message: 'Please enter an ipc socket path for the signer:',
     default: option ? option : '/tmp/signer.sock',
     filter: defaultFilter
   }
