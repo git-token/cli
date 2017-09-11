@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const GitTokenSigner = require('gittoken-signer').default;
-
+const { exec } = require('child_process');
 
 
 program

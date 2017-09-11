@@ -1,0 +1,53 @@
+---
+  version: '3.0'
+  volumes:
+    - signer-volume
+    - ipc-volume
+    - log-volume
+    - parity-volume
+  signer:
+    env_file:
+      - signer.env
+    build:
+      context: "./node_modules/gittoken-signer/."
+    ipc: host
+    volumes:
+      - "signer-volume:/keystore/"
+      - "ipc-volume:/tmp/"
+  webhookmgr:
+    ports:
+      - "3000:3000"
+    env_file:
+      - webhook.env
+    build:
+      context: "./node_modules/gittoken-webhook-manager/."
+    ipc: signer
+    volumes:
+      - "log-volume:/db"
+      - "ipc-volume:/tmp/"
+  registry:
+    ports:
+      - "3001:3001"
+    env_file:
+      - registry.env
+    build:
+      context: "./node_modules/gittoken-registry/."
+    ipc: signer
+    volumes:
+      - "ipc-volume:/tmp/"
+  mysql:
+    ports:
+      - "3306:3306"
+    env_file:
+      - mysql.env
+    image: "mysql"
+  parity:
+    ports:
+      - "8080:8080"
+      - "8180:8180"
+      - "8545:8545"
+      - "30303:30303"
+    image: "parity/parity:v1.6.8"
+    volumes:
+      - "parity-volume:/mnt/parity"
+    command: "--reseal-min-period 0 --gasprice 0 --rpccorsdomain='*' --geth --config /mnt/parity/config.toml"

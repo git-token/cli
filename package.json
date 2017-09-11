@@ -1,16 +1,11 @@
 {
   "name": "git-token",
-  "version": "0.0.25",
+  "version": "0.0.27",
   "description": "GitToken CLI Program",
   "bin": {
-    "git-token": "./commands/index.js",
-    "git-token-setup": "./commands/setup/index.js",
-    "git-token-configure": "./commands/configure/index.js",
-    "git-token-configure-signer": "./commands/configure/signer.js",
-    "git-token-configure-webhook": "./commands/configure/webhook.js",
-    "git-token-deploy": "./commands/deploy/index.js",
-    "git-token-deploy-signer": "./commands/deploy/signer.js",
-    "git-token-deploy-webhook": "./commands/deploy/webhook.js"
+    "git-token": "./src/index.js",
+    "git-token-setup": "./src/setup/index.js",
+    "git-token-deploy": "./src/deploy/index.js"
   },
   "scripts": {
     "test": "mocha"
@@ -25,9 +20,13 @@
   "author": "Ryan Tate <ryan.tate@gittoken.io>",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "commander": "^2.11.0",
     "dotenv": "^4.0.0",
+    "gittoken-docker": "0.0.1",
     "gittoken-signer": "0.0.9",
-    "gittoken-webhook-manager": "0.0.3"
+    "gittoken-webhook-manager": "0.0.3",
+    "inquirer": "^3.2.3",
+    "json2yaml": "^1.1.0"
   }
 }
