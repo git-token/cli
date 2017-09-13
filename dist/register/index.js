@@ -33,7 +33,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var github = void 0,
     user = void 0,
-    org = void 0;
+    org = void 0,
+    profile = void 0;
 
 _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.register))).then(function (answers) {
 
@@ -60,19 +61,32 @@ _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.re
 }).then(function (_ref) {
   var organization = _ref.organization;
 
-  return isAdmin({ organization: organization });
-}).then(function (admin) {
-  console.log('admin', admin);
-}).catch(function (error) {
+  return (0, _bluebird.join)(organization, isAdmin({ organization: organization }));
+}).then(function (data) {
+  if (!data[1]) {
+    console.log('\n      Invalid Authorization!\n\n      Must be an admin of ' + data[0] + ' to register.\n    ');
+    process.exit(1);
+  } else {
+    return _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)((0, _options.token)({ organization: data[0], profile: profile }))));
+  }
+}).then(function (answers) {}).catch(function (error) {
   console.log(error);
 });
 
+// Helper Methods
+// TODO Break out into utility methods or class
+
+/**
+ * [getMembers description]
+ * @param  {[type]} organization [description]
+ * @return [type]                [description]
+ */
 function getMembers(_ref2) {
   var organization = _ref2.organization;
 
   return new _bluebird2.default(function (resolve, reject) {
     org = github.getOrganization(organization);
-    org.listMembers().then(function (_ref3) {
+    org.listMembers({ role: 'admin' }).then(function (_ref3) {
       var data = _ref3.data;
 
       resolve(data);
@@ -82,18 +96,21 @@ function getMembers(_ref2) {
   });
 }
 
+/**
+ * [isAdmin description]
+ * @param  {[type]} organization [description]
+ * @return Boolean               [description]
+ */
 function isAdmin(_ref4) {
   var organization = _ref4.organization;
 
   return new _bluebird2.default(function (resolve, reject) {
-    var profile = void 0;
     _bluebird2.default.resolve(user.getProfile()).then(function (_ref5) {
       var data = _ref5.data;
 
       profile = data;
       return getMembers({ organization: organization });
     }).map(function (member) {
-      console.log(user);
       if (member.login == profile.login) {
         resolve(true);
       } else {

@@ -5,12 +5,12 @@ import inquirer from 'inquirer'
 import { exec } from 'child_process'
 import GitHubApi from 'github-api'
 
-import { register } from './options'
+import { register, token } from './options'
 import cacheData from '../utils/cacheData'
 import filter from '../utils/filter'
 
 
-let github, user, org;
+let github, user, org, profile;
 
 inquirer.prompt([
   ...register
@@ -35,17 +35,44 @@ inquirer.prompt([
     filter,
   }])
 }).then(({ organization }) => {
-  return isAdmin({ organization })
-}).then((admin) => {
-  console.log('admin', admin)
+  return join(
+    organization,
+    isAdmin({ organization })
+  )
+}).then((data) => {
+  if (!data[1]) {
+    console.log(`
+      Invalid Authorization!
+
+      Must be an admin of ${data[0]} to register.
+    `)
+    process.exit(1)
+  } else {
+    return inquirer.prompt([
+      ...token({ organization: data[0], profile })
+    ])
+  }
+}).then((answers) => {
+
 }).catch((error) => {
   console.log(error)
 })
 
+
+
+
+// Helper Methods
+// TODO Break out into utility methods or class
+
+/**
+ * [getMembers description]
+ * @param  {[type]} organization [description]
+ * @return [type]                [description]
+ */
 function getMembers({ organization }) {
   return new Promise((resolve, reject) => {
     org = github.getOrganization(organization)
-    org.listMembers().then(({ data }) => {
+    org.listMembers({ role: 'admin' }).then(({ data }) => {
       resolve(data)
     }).catch((error) => {
       reject(error)
@@ -53,9 +80,14 @@ function getMembers({ organization }) {
   })
 }
 
+
+/**
+ * [isAdmin description]
+ * @param  {[type]} organization [description]
+ * @return Boolean               [description]
+ */
 function isAdmin({ organization }) {
   return new Promise((resolve, reject) => {
-    let profile
     Promise.resolve(user.getProfile()).then(({ data }) => {
       profile = data
       return getMembers({ organization })

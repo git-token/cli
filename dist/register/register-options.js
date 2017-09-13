@@ -13,14 +13,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var GITHUB_USER = {
   type: 'input',
   name: 'GITHUB_USER',
-  message: 'Please Enter GitHub Username',
+  message: 'Please enter GitHub username: ',
   filter: _filter2.default
 };
 
 var GITHUB_TOKEN = {
   type: 'password',
   name: 'GITHUB_TOKEN',
-  message: 'Please Enter GitHub Authorization Token (or enter to use password)',
+  message: 'Please enter GitHub authorization token (or enter to use password): ',
   filter: _filter2.default,
   default: null
 };
@@ -28,7 +28,7 @@ var GITHUB_TOKEN = {
 var GITHUB_PASSWORD = {
   type: 'password',
   name: 'GITHUB_PASSWORD',
-  message: 'Please Enter GitHub Password (leave blank if used oauth token)',
+  message: 'Please enter GitHub password (leave blank if used oauth token): ',
   filter: _filter2.default,
   default: null
 };
@@ -36,7 +36,7 @@ var GITHUB_PASSWORD = {
 var GITHUB_ORG = {
   type: 'input',
   name: 'GITHUB_ORG',
-  message: 'Please Enter GitHub Organization',
+  message: 'Please enter GitHub organization: ',
   filter: _filter2.default
 };
 
