@@ -18,8 +18,7 @@ inquirer.prompt([
 
   github = new GitHubApi({
     username: answers['GITHUB_USER'],
-    token: answers['GITHUB_TOKEN'],
-    password: answers['GITHUB_PASSWORD']
+    token: answers['GITHUB_TOKEN']
   })
 
   user = github.getUser()

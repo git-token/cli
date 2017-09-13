@@ -37,7 +37,7 @@ var GITTOKEN_ORGANIZATION = function GITTOKEN_ORGANIZATION(_ref) {
     message: 'Please enter desired token organization: ',
     validate: function validate(input) {
       return new _bluebird2.default(function (resolve, reject) {
-        input == organization ? resolve(true) : reject('\n\n            Input must match selected organization.\n\n            Try \'' + organization + '\' or press enter.\n          ');
+        input == organization ? resolve(true) : reject('Input must match selected organization.');
       });
     },
     filter: _filter2.default,
@@ -75,7 +75,7 @@ var GITTOKEN_ADMIN_USER = function GITTOKEN_ADMIN_USER(_ref2) {
     message: 'Please enter admin GitHub username: ',
     validate: function validate(input) {
       return new _bluebird2.default(function (resolve, reject) {
-        input == profile.login ? resolve(true) : reject('\n\n            Username must match authorized profile username.\n          ');
+        input == profile.login ? resolve(true) : reject('Username must match authorized profile username.');
       });
     },
     filter: _filter2.default,
@@ -92,7 +92,7 @@ var GITTOKEN_ADMIN_EMAIL = function GITTOKEN_ADMIN_EMAIL(_ref3) {
     message: 'Please enter admin email: ',
     validate: function validate(input) {
       return new _bluebird2.default(function (resolve, reject) {
-        input == profile.email ? resolve(true) : reject('\n\n            Email must match authorized profile email.\n          ');
+        input == profile.email ? resolve(true) : reject('Email must match authorized profile email.');
       });
     },
     filter: _filter2.default,

@@ -20,7 +20,7 @@ var GITHUB_USER = {
 var GITHUB_TOKEN = {
   type: 'password',
   name: 'GITHUB_TOKEN',
-  message: 'Please enter GitHub authorization token (or enter to use password): ',
+  message: 'Please enter GitHub authorization token: ',
   filter: _filter2.default,
   default: null
 };
@@ -28,7 +28,7 @@ var GITHUB_TOKEN = {
 var GITHUB_PASSWORD = {
   type: 'password',
   name: 'GITHUB_PASSWORD',
-  message: 'Please enter GitHub password (leave blank if used oauth token): ',
+  message: 'Please enter GitHub password (leave blank if using oauth token): ',
   filter: _filter2.default,
   default: null
 };
@@ -40,4 +40,8 @@ var GITHUB_ORG = {
   filter: _filter2.default
 };
 
-module.exports = [GITHUB_USER, GITHUB_TOKEN, GITHUB_PASSWORD];
+module.exports = [GITHUB_USER,
+// GITHUB_PASSWORD,
+GITHUB_TOKEN
+// GITHUB_ORG
+];

@@ -40,8 +40,7 @@ _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.re
 
   github = new _githubApi2.default({
     username: answers['GITHUB_USER'],
-    token: answers['GITHUB_TOKEN'],
-    password: answers['GITHUB_PASSWORD']
+    token: answers['GITHUB_TOKEN']
   });
 
   user = github.getUser();

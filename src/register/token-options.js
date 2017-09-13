@@ -17,12 +17,7 @@ const GITTOKEN_ORGANIZATION = ({ organization }) => {
       return new Promise((resolve, reject) => {
         input == organization ?
           resolve(true) :
-          reject(`
-
-            Input must match selected organization.
-
-            Try '${organization}' or press enter.
-          `)
+          reject(`Input must match selected organization.`)
       })
     },
     filter: defaultFilter,
@@ -60,10 +55,7 @@ const GITTOKEN_ADMIN_USER = ({ profile }) => {
       return new Promise((resolve, reject) => {
         input == profile.login ?
           resolve(true) :
-          reject(`
-
-            Username must match authorized profile username.
-          `)
+          reject(`Username must match authorized profile username.`)
       })
     },
     filter: defaultFilter,
@@ -80,10 +72,7 @@ const GITTOKEN_ADMIN_EMAIL = ({ profile }) => {
       return new Promise((resolve, reject) => {
         input == profile.email ?
           resolve(true) :
-          reject(`
-
-            Email must match authorized profile email.
-          `)
+          reject(`Email must match authorized profile email.`)
       })
     },
     filter: defaultFilter,

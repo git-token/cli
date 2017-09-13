@@ -11,7 +11,7 @@ const GITHUB_USER = {
 const GITHUB_TOKEN = {
   type: 'password',
   name: 'GITHUB_TOKEN',
-  message: 'Please enter GitHub authorization token (or enter to use password): ',
+  message: 'Please enter GitHub authorization token: ',
   filter: defaultFilter,
   default: null
 }
@@ -19,7 +19,7 @@ const GITHUB_TOKEN = {
 const GITHUB_PASSWORD = {
   type: 'password',
   name: 'GITHUB_PASSWORD',
-  message: 'Please enter GitHub password (leave blank if used oauth token): ',
+  message: 'Please enter GitHub password (leave blank if using oauth token): ',
   filter: defaultFilter,
   default: null
 }
@@ -34,7 +34,7 @@ const GITHUB_ORG = {
 
 module.exports = [
   GITHUB_USER,
-  GITHUB_TOKEN,
-  GITHUB_PASSWORD,
+  // GITHUB_PASSWORD,
+  GITHUB_TOKEN
   // GITHUB_ORG
 ]
