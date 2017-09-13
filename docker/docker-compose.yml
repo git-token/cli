@@ -1,53 +1,51 @@
 ---
-  version: '3.0'
-  volumes:
-    - signer-volume
-    - ipc-volume
-    - log-volume
-    - parity-volume
-  signer:
-    env_file:
-      - signer.env
-    build:
-      context: "./node_modules/gittoken-signer/."
-    ipc: host
-    volumes:
-      - "signer-volume:/keystore/"
-      - "ipc-volume:/tmp/"
-  webhookmgr:
-    ports:
-      - "3000:3000"
-    env_file:
-      - webhook.env
-    build:
-      context: "./node_modules/gittoken-webhook-manager/."
-    ipc: signer
-    volumes:
-      - "log-volume:/db"
-      - "ipc-volume:/tmp/"
-  registry:
-    ports:
-      - "3001:3001"
-    env_file:
-      - registry.env
-    build:
-      context: "./node_modules/gittoken-registry/."
-    ipc: signer
-    volumes:
-      - "ipc-volume:/tmp/"
-  mysql:
-    ports:
-      - "3306:3306"
-    env_file:
-      - mysql.env
-    image: "mysql"
-  parity:
-    ports:
-      - "8080:8080"
-      - "8180:8180"
-      - "8545:8545"
-      - "30303:30303"
-    image: "parity/parity:v1.6.8"
-    volumes:
-      - "parity-volume:/mnt/parity"
-    command: "--reseal-min-period 0 --gasprice 0 --rpccorsdomain='*' --geth --config /mnt/parity/config.toml"
+  version: "3.0"
+  volumes: 
+    - "signer-volume"
+    - "ipc-volume"
+    - "log-volume"
+    - "parity-volume"
+  services: 
+    mysql: 
+      ports: 
+        - "3306:3306"
+      environment: 
+        - "MYSQL_HOST=127.0.0.1:3306"
+        - "MYSQL_USER=root"
+        - "MYSQL_ROOT_PASSWORD="
+        - "MYSQL_DATABASE=git_token"
+      image: "mysql"
+    signer: 
+      environment: 
+        - "WEB3_PROVIDER=http://127.0.0.1:8545"
+        - "IS_RECOVERY=false"
+        - "MYSQL_HOST=127.0.0.1:3306"
+        - "MYSQL_USER=root"
+        - "MYSQL_ROOT_PASSWORD="
+        - "MYSQL_DATABASE=git_token"
+        - "SIGNER_IPC_PATH=/tmp/signer.sock"
+        - "SIGNER_KEYSTORE_DIR_PATH=/keystore/"
+      build: 
+        context: "./node_modules/gittoken-signer/."
+      ipc: "host"
+      volumes: 
+        - "signer-volume:/keystore/"
+        - "ipc-volume:/tmp/"
+    webhook: 
+      ports: 
+        - "3000:3000"
+      environment: 
+        - "WEBHOOK_PORT=3000"
+        - "RECOVERY_SHARE="
+        - "MYSQL_HOST=127.0.0.1:3306"
+        - "MYSQL_USER=root"
+        - "MYSQL_ROOT_PASSWORD="
+        - "MYSQL_DATABASE=git_token"
+        - "WEBHOOK_LOGGER_PATH=/db/"
+        - "SIGNER_IPC_PATH=/tmp/signer.sock"
+      build: 
+        context: "./node_modules/gittoken-webhook-manager/."
+      ipc: "signer"
+      volumes: 
+        - "log-volume:/db"
+        - "ipc-volume:/tmp/"

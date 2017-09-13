@@ -1,51 +1,52 @@
-const Promise = require('bluebird')
-const defaultFilter = require('../utils/filter')
+import Promise from 'bluebird'
+import defaultFilter from '../utils/filter'
 
-const mysqlHost = ({ option }) => {
+export function mysqlHost ({ option }) {
   return {
     type: 'input',
-    name: 'mysqlHost',
+    name: 'MYSQL_HOST',
     message: 'Please enter mysql IPv4 host address: ',
     default: option ? option : '127.0.0.1:3306',
     filter: defaultFilter
   }
 }
 
-const mysqlUser = ({ option }) => {
+export function mysqlUser ({ option }) {
   return {
     type: 'input',
-    name: 'mysqlUser',
+    name: 'MYSQL_USER',
     message: 'Please enter mysql user name: ',
     default: option ? option : 'root',
     filter: defaultFilter
   }
 }
 
-const mysqlRootPassword = ({ option }) => {
+export function mysqlRootPassword ({ option }) {
   return {
     type: 'password',
-    name: 'mysqlRootPassword',
+    name: 'MYSQL_ROOT_PASSWORD',
     message: 'Please enter mysql user password: ',
     default: option ? option : null,
     filter: defaultFilter
   }
 }
 
-const mysqlDatabase = ({ option }) => {
+export function mysqlDatabase ({ option }) {
   return {
     type: 'input',
-    name: 'mysqlDatabase',
+    name: 'MYSQL_DATABASE',
     message: 'Please enter mysql database name: ',
     default: option ? option : 'git_token',
     filter: defaultFilter
   }
 }
 
-module.exports = (options) => {
+export default function (options) {
+  const { mysql } = options
   return [
-    mysqlHost({ option: options['mysqlHost'] }),
-    mysqlUser({ option: options['mysqlUser'] }),
-    mysqlRootPassword({ option: options['mysqlRootPassword'] }),
-    mysqlDatabase({ option: options['mysqlDatabase'] })
+    exports.mysqlHost({ option: mysql['MYSQL_HOST'] }),
+    exports.mysqlUser({ option: mysql['MYSQL_USER'] }),
+    exports.mysqlRootPassword({ option: mysql['MYSQL_ROOT_PASSWORD'] }),
+    exports.mysqlDatabase({ option: mysql['MYSQL_DATABASE'] })
   ]
 }

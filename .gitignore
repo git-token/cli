@@ -2,3 +2,4 @@ node_modules
 keystore.json
 secrets.json
 *.env
+cache/data.json

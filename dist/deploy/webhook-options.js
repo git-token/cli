@@ -1,55 +1,61 @@
 #!/usr/bin/env node
+'use strict';
 
-import Promise from 'bluebird'
-import defaultFilter from '../utils/filter'
-import mysqlOptions from './mysql-options'
-import signerOptions, { signerIpcPath } from './signer-options'
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.port = port;
+exports.recoveryShare = recoveryShare;
+exports.logDBPath = logDBPath;
 
+exports.default = function (options) {
+  var webhook = options.webhook,
+      signer = options.signer;
 
-export function port ({ option }) {
+  return [port({ option: webhook['WEBHOOK_PORT'] }), recoveryShare({ option: webhook['RECOVERY_SHARE'] })].concat((0, _mysqlOptions2.default)(options));
+};
+
+var _bluebird = require('bluebird');
+
+var _bluebird2 = _interopRequireDefault(_bluebird);
+
+var _filter = require('../utils/filter');
+
+var _filter2 = _interopRequireDefault(_filter);
+
+var _mysqlOptions = require('./mysql-options');
+
+var _mysqlOptions2 = _interopRequireDefault(_mysqlOptions);
+
+var _signerOptions = require('./signer-options');
+
+var _signerOptions2 = _interopRequireDefault(_signerOptions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function port(_ref) {
+  var option = _ref.option;
+
   return {
     type: 'input',
     name: 'WEBHOOK_PORT',
     message: 'Please enter port for GitToken webhook manager:',
     default: option ? option : 3000,
-    filter: defaultFilter
-  }
+    filter: _filter2.default
+  };
 }
 
-export function recoveryShare ({ option }) {
+function recoveryShare(_ref2) {
+  var option = _ref2.option;
+
   return {
     type: 'password',
     name: 'RECOVERY_SHARE',
     message: 'Please enter recovery share for GitToken signer:',
     default: option ? option : null,
-    filter: defaultFilter
-  }
+    filter: _filter2.default
+  };
 }
-
-export function logDBPath ({ option }) {
-  return {
-    type: 'input',
-    name: 'WEBHOOK_LOGGER_PATH',
-    message: 'Please enter path for GitToken webhook manager levelDB log:',
-    default: option ? option : '/db/',
-    filter: defaultFilter
-  }
-}
-
-export default function (options) {
-  const { webhook, signer } = options
-  return [
-    port({ option: webhook['WEBHOOK_PORT'] }),
-    recoveryShare({ option: webhook['RECOVERY_SHARE'] }),
-    // logDBPath({ option: webhook['WEBHOOK_LOGGER_PATH'] }),
-    // signerIpcPath({ option: signer['SIGNER_IPC_PATH'] })
-  ].concat(mysqlOptions(options))
-}
-
-
-
-
-
 
 // const program = require('commander');
 // const GitTokenWebHookManager = require('gittoken-webhook-manager').default;
@@ -114,14 +120,14 @@ export default function (options) {
 //       MYSQL_DATABASE
 //   `)
 //
-  // port = process.env['WEBHOOK_MANAGER_PORT'];
-  // recoveryShare = process.env['RECOVERY_SHARE'];
-  // signerIpcPath = process.env['SIGNER_IPC_PATH'];
-  // logDBPath = process.env['LOG_DB_PATH'];
-  // mysqlHost = process.env['MYSQL_HOST'];
-  // mysqlUser = process.env['MYSQL_USER'];
-  // mysqlRootPassword = process.env['MYSQL_ROOT_PASSWORD'];
-  // mysqlDatabase = process.env['MYSQL_DATABASE'];
+// port = process.env['WEBHOOK_MANAGER_PORT'];
+// recoveryShare = process.env['RECOVERY_SHARE'];
+// signerIpcPath = process.env['SIGNER_IPC_PATH'];
+// logDBPath = process.env['LOG_DB_PATH'];
+// mysqlHost = process.env['MYSQL_HOST'];
+// mysqlUser = process.env['MYSQL_USER'];
+// mysqlRootPassword = process.env['MYSQL_ROOT_PASSWORD'];
+// mysqlDatabase = process.env['MYSQL_DATABASE'];
 // }
 //
 // // Run the program
@@ -131,3 +137,14 @@ export default function (options) {
 //   recoveryShare,
 //   signerIpcPath
 // })
+function logDBPath(_ref3) {
+  var option = _ref3.option;
+
+  return {
+    type: 'input',
+    name: 'WEBHOOK_LOGGER_PATH',
+    message: 'Please enter path for GitToken webhook manager levelDB log:',
+    default: option ? option : '/db/',
+    filter: _filter2.default
+  };
+}

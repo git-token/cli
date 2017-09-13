@@ -1,8 +1,8 @@
-const services = require('./services-options')
-const signer = require('./signer-options')
-const webhook = require('./webhook-options')
-const mysql = require('./mysql-options')
-const parity = require('./parity-options')
+import services from './services-options'
+import signer from './signer-options'
+import webhook from './webhook-options'
+import mysql from './mysql-options'
+import parity from './parity-options'
 
 module.exports = {
   services,

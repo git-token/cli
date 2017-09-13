@@ -3,12 +3,14 @@
   "version": "0.0.28",
   "description": "GitToken CLI Program",
   "bin": {
-    "git-token": "./src/index.js",
-    "git-token-setup": "./src/setup/index.js",
-    "git-token-deploy": "./src/deploy/index.js"
+    "git-token": "./dist/index.js",
+    "git-token-setup": "./dist/setup/index.js",
+    "git-token-deploy": "./dist/deploy/index.js",
+    "git-token-register": "./dist/register/index.js"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "babel ./src/ --out-dir ./dist/ --plugins transform-runtime"
   },
   "keywords": [
     "GitToken",
@@ -23,10 +25,23 @@
     "bluebird": "^3.5.0",
     "commander": "^2.11.0",
     "dotenv": "^4.0.0",
+    "github-api": "^3.0.0",
     "gittoken-docker": "0.0.1",
     "gittoken-signer": "0.0.9",
     "gittoken-webhook-manager": "0.0.3",
     "inquirer": "^3.2.3",
-    "json2yaml": "^1.1.0"
+    "json2yaml": "^1.1.0",
+    "jsonfile": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-inline-import": "^2.0.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "chai": "^4.0.1"
   }
 }

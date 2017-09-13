@@ -1,27 +1,45 @@
 #!/usr/bin/env node
 
-const Promise = require('bluebird')
-const inquirer = require('inquirer')
-const { exec } = require('child_process');
-const options = require('./options')
+import Promise from 'bluebird'
+import inquirer from 'inquirer'
+import { exec } from 'child_process'
+import options from './options'
 
-let variables = {}
+import writeDockerCompose from '../utils/writeDockerCompose'
+import cacheData from '../utils/cacheData'
 
-inquirer.prompt(options['services']).then((answer) => {
-  return nextService(answer.service, {})
-}).then(() => {
-  console.log('variables', variables)
+let services
+
+inquirer.prompt(options['services']).then((answers) => {
+  services = answers.services
+  return nextService(services, services.reduce((acc, s) => {
+    typeof acc == 'string' ?
+      acc = Object.assign({[acc]: {} }, { [s]: {} }) :
+      acc = Object.assign(acc, { [s]: {} })
+    return acc
+  }))
+}).then((variables) => {
+  return Promise.join(
+    cacheData({ data: variables }),
+    writeDockerCompose({ variables })
+  )
+}).then((saved) => {
+//   return deployDockerServices({ services })
+// }).then(() => {
+
 }).catch((error) => {
   console.log(error)
 })
 
 
-function nextService(serviceList, envs) {
+function nextService(services, envs) {
   return new Promise((resolve, reject) => {
-    const s = serviceList.shift()
-    if (serviceList.length == 0 || !options[s]) {
+    if (services.length == 0 || !options[services[0]]) {
       resolve(null)
     }
+
+    const s = services.shift()
+    let variables = {}
 
     if (s) {
       console.log(`
@@ -29,13 +47,11 @@ function nextService(serviceList, envs) {
       `)
     }
 
-    const prompt = inquirer.createPromptModule()
-
-    prompt(options[s](envs)).then((answer) => {
-      variables = Object.assign(variables, answer)
-      return nextService(serviceList, variables)
+    inquirer.prompt(options[s](envs)).then((answer) => {
+      variables = Object.assign(envs, { [s]: answer })
+      return nextService(services, variables)
     }).then(() => {
-      resolve(true)
+      resolve(variables)
     }).catch((error) => {
       reject(error)
     })

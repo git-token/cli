@@ -1,95 +1,53 @@
-const Promise = require('bluebird')
-const defaultFilter = require('../utils/filter')
+import Promise from 'bluebird'
+import defaultFilter from '../utils/filter'
+import mysqlOptions from './mysql-options'
 
-const signerIpcPath = ({ option }) => {
+export function signerIpcPath ({ option }) {
   return {
     type: 'input',
-    name: 'signerIpcPath',
+    name: 'SIGNER_IPC_PATH',
     message: 'Please enter an ipc socket path for the signer:',
     default: option ? option : '/tmp/signer.sock',
     filter: defaultFilter
   }
 }
 
-const dirPath = ({ option }) => {
+export function dirPath ({ option }) {
   return {
     type: 'input',
-    name: 'dirPath',
+    name: 'SIGNER_KEYSTORE_DIR_PATH',
     message: 'Please enter a directory path for the keystore:',
     default: option ? option : '/keystore/',
     filter: defaultFilter
   }
 }
 
-const mysqlHost = ({ option }) => {
+export function web3Provider ({ option }) {
   return {
     type: 'input',
-    name: 'mysqlHost',
-    message: 'Please enter mysql IPv4 host address: ',
-    default: option ? option : '127.0.0.1:3306',
-    filter: defaultFilter
-  }
-}
-
-const mysqlUser = ({ option }) => {
-  return {
-    type: 'input',
-    name: 'mysqlUser',
-    message: 'Please enter mysql user name: ',
-    default: option ? option : 'root',
-    filter: defaultFilter
-  }
-}
-
-const mysqlRootPassword = ({ option }) => {
-  return {
-    type: 'password',
-    name: 'mysqlRootPassword',
-    message: 'Please enter mysql user password: ',
-    default: option ? option : null,
-    filter: defaultFilter
-  }
-}
-
-const mysqlDatabase = ({ option }) => {
-  return {
-    type: 'input',
-    name: 'mysqlDatabase',
-    message: 'Please enter mysql database name: ',
-    default: option ? option : 'git_token',
-    filter: defaultFilter
-  }
-}
-
-const web3Provider = ({ option }) => {
-  return {
-    type: 'input',
-    name: 'web3Provider',
+    name: 'WEB3_PROVIDER',
     message: 'Please enter web3 http provider: ',
     default: option ? option : 'http://127.0.0.1:8545',
     filter: defaultFilter
   }
 }
 
-const recover = ({ option }) => {
+export function recover ({ option }) {
   return {
     type: 'confirm',
-    name: 'recover',
+    name: 'IS_RECOVERY',
     message: 'Recover existing keystore?',
     default: option ? option : false,
     filter: defaultFilter
   }
 }
 
-module.exports = (options) => {
+export default function(options) {
+  const { signer } = options
   return [
-    signerIpcPath({ option: options['signerIpcPath'] }),
-    dirPath({ option: options['dirPath'] }),
-    mysqlHost({ option: options['mysqlHost'] }),
-    mysqlUser({ option: options['mysqlUser'] }),
-    mysqlRootPassword({ option: options['mysqlRootPassword'] }),
-    mysqlDatabase({ option: options['mysqlDatabase'] }),
-    web3Provider({ option: options['web3Provider'] }),
-    recover({ option: options['recover'] })
-  ]
+    // signerIpcPath({ option: signer['SIGNER_IPC_PATH'] }),
+    // dirPath({ option: signer['SIGNER_KEYSTORE_DIR_PATH'] }),
+    web3Provider({ option: signer['WEB3_PROVIDER'] }),
+    recover({ option: signer['IS_RECOVERY'] }),
+  ].concat(mysqlOptions(options))
 }
