@@ -94,11 +94,13 @@ var GITTOKEN_ADMIN_EMAIL = function GITTOKEN_ADMIN_EMAIL(_ref3) {
     type: 'input',
     name: 'GITTOKEN_ADMIN_EMAIL',
     message: 'Please enter admin email: ',
-    validate: function validate(input) {
-      return new _bluebird2.default(function (resolve, reject) {
-        input == profile.email ? resolve(true) : reject('Email must match authorized profile email.');
-      });
-    },
+    // validate: (input) => {
+    //   return new Promise((resolve, reject) => {
+    //     input == profile.email ?
+    //       resolve(true) :
+    //       reject(`Email must match authorized profile email.`)
+    //   })
+    // },
     filter: _filter2.default,
     default: profile.email
   };

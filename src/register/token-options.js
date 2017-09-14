@@ -68,13 +68,13 @@ const GITTOKEN_ADMIN_EMAIL = ({ profile }) => {
     type: 'input',
     name: 'GITTOKEN_ADMIN_EMAIL',
     message: 'Please enter admin email: ',
-    validate: (input) => {
-      return new Promise((resolve, reject) => {
-        input == profile.email ?
-          resolve(true) :
-          reject(`Email must match authorized profile email.`)
-      })
-    },
+    // validate: (input) => {
+    //   return new Promise((resolve, reject) => {
+    //     input == profile.email ?
+    //       resolve(true) :
+    //       reject(`Email must match authorized profile email.`)
+    //   })
+    // },
     filter: defaultFilter,
     default: profile.email
   }
