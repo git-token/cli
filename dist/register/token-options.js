@@ -8,7 +8,11 @@ exports.default = function (_ref4) {
   var organization = _ref4.organization,
       profile = _ref4.profile;
 
-  return [GITTOKEN_NAME, GITTOKEN_ORGANIZATION({ organization: organization }), GITTOKEN_SYMBOL, GITTOKEN_DECIMALS, GITTOKEN_ADMIN_ADDRESS, GITTOKEN_ADMIN_USER({ profile: profile }), GITTOKEN_ADMIN_EMAIL({ profile: profile })];
+  return [GITTOKEN_NAME,
+  // GITTOKEN_ORGANIZATION({ organization }),
+  GITTOKEN_SYMBOL, GITTOKEN_DECIMALS, GITTOKEN_ADMIN_ADDRESS,
+  // GITTOKEN_ADMIN_USER({ profile }),
+  GITTOKEN_ADMIN_EMAIL({ profile: profile })];
 };
 
 var _bluebird = require('bluebird');

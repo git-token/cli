@@ -84,11 +84,11 @@ const GITTOKEN_ADMIN_EMAIL = ({ profile }) => {
 export default function ({ organization, profile }) {
   return [
     GITTOKEN_NAME,
-    GITTOKEN_ORGANIZATION({ organization }),
+    // GITTOKEN_ORGANIZATION({ organization }),
     GITTOKEN_SYMBOL,
     GITTOKEN_DECIMALS,
     GITTOKEN_ADMIN_ADDRESS,
-    GITTOKEN_ADMIN_USER({ profile }),
+    // GITTOKEN_ADMIN_USER({ profile }),
     GITTOKEN_ADMIN_EMAIL({ profile })
   ]
 }
