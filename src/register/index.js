@@ -78,26 +78,24 @@ inquirer.prompt([
   })
 }).then((result) => {
 
-  figlet('GitToken', 'Standard', (error, result) => {
-    console.log(`
+  console.log(`
 
-      Congratulations! ${variables['GITTOKEN_NAME']} is registered with GitToken!
+    Congratulations! ${variables['GITTOKEN_NAME']} is registered with GitToken!
 
-      To start using GitToken for ${variables['GITTOKEN_ORGANIZATION']}, you must setup a
-      GitHub webhook service here:
+    To start using GitToken for ${variables['GITTOKEN_ORGANIZATION']}, you must setup a
+    GitHub webhook service here:
 
-      https://github.com/organizations/${variables['GITTOKEN_ORGANIZATION']}/settings/hooks
+    https://github.com/organizations/${variables['GITTOKEN_ORGANIZATION']}/settings/hooks
 
-      And set the url path to:
+    And set the url path to:
 
-      https://webhook.gittoken.io/${variables['GITTOKEN_ORGANIZATION']}
-
+    https://webhook.gittoken.io/${variables['GITTOKEN_ORGANIZATION']}
 
 
-      Thanks for using GitToken! Happy Coding!
 
-    `)
-  })
+    Thanks for using GitToken! Happy Coding!
+
+  `)
 
 }).catch((error) => {
   console.log(error)
