@@ -27,10 +27,6 @@ var _index = require('gittoken-registry/dist/client/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _figlet = require('figlet');
-
-var _figlet2 = _interopRequireDefault(_figlet);
-
 var _options = require('./options');
 
 var _cacheData = require('../utils/cacheData');
@@ -104,7 +100,7 @@ _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.re
   });
 }).then(function (result) {
 
-  (0, _figlet2.default)('GitToken', 'Standard', function (error, result) {
+  figlet('GitToken', 'Standard', function (error, result) {
     console.log('\n\n      Congratulations! ' + variables['GITTOKEN_NAME'] + ' is registered with GitToken!\n\n      To start using GitToken for ' + variables['GITTOKEN_ORGANIZATION'] + ', you must setup a\n      GitHub webhook service here:\n\n      https://github.com/organizations/' + variables['GITTOKEN_ORGANIZATION'] + '/settings/hooks\n\n      And set the url path to:\n\n      https://webhook.gittoken.io/' + variables['GITTOKEN_ORGANIZATION'] + '\n\n\n\n      Thanks for using GitToken! Happy Coding!\n\n    ');
   });
 }).catch(function (error) {
