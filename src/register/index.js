@@ -13,15 +13,20 @@ const registry = new GitTokenRegistryClient({
   registryUri: 'https://registry.gittoken.io'
 })
 
+// Keep as mutable global variables
+let github, user, org, profile, variables;
 
-Register()
+Register().then((success) => {
+  console.log(success)
+}).catch((error) => {
+  console.log(error)
+})
 
 /**
  * Encapsulate the program logic to re-enter function upon failure.
  */
 function Register() {
   return new Promise((resolve, reject) => {
-    let github, user, org, profile, variables;
 
     inquirer.prompt([
       ...register
@@ -105,9 +110,13 @@ function Register() {
       `)
 
     }).catch((error) => {
-      if (error.response.status == 401) {
+      if (error.response && error.response.status == 401) {
         console.log('Invalid GitHub Personal Access Token. Please retry.')
-        Register()
+        Register().then((success) => {
+          resolve(success)
+        }).catch((error) => {
+          reject(error)
+        })
       } else {
         reject(error)
       }

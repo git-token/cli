@@ -43,18 +43,24 @@ var registry = new _index2.default({
   registryUri: 'https://registry.gittoken.io'
 });
 
-Register();
+// Keep as mutable global variables
+var github = void 0,
+    user = void 0,
+    org = void 0,
+    profile = void 0,
+    variables = void 0;
+
+Register().then(function (success) {
+  console.log(success);
+}).catch(function (error) {
+  console.log(error);
+});
 
 /**
  * Encapsulate the program logic to re-enter function upon failure.
  */
 function Register() {
   return new _bluebird2.default(function (resolve, reject) {
-    var github = void 0,
-        user = void 0,
-        org = void 0,
-        profile = void 0,
-        variables = void 0;
 
     _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.register))).then(function (answers) {
       variables = (0, _extends3.default)({}, answers);
@@ -109,9 +115,13 @@ function Register() {
 
       resolve('\n\n        Congratulations! ' + variables['GITTOKEN_NAME'] + ' is registered with GitToken!\n\n        To start using GitToken for ' + variables['GITTOKEN_ORGANIZATION'] + ', you must setup a\n        GitHub webhook service here:\n\n        https://github.com/organizations/' + variables['GITTOKEN_ORGANIZATION'] + '/settings/hooks\n\n        And set the url path to:\n\n        https://webhook.gittoken.io/' + variables['GITTOKEN_ORGANIZATION'] + '\n\n\n\n        Thanks for using GitToken! Happy Coding!\n\n      ');
     }).catch(function (error) {
-      if (error.response.status == 401) {
+      if (error.response && error.response.status == 401) {
         console.log('Invalid GitHub Personal Access Token. Please retry.');
-        Register();
+        Register().then(function (success) {
+          resolve(success);
+        }).catch(function (error) {
+          reject(error);
+        });
       } else {
         reject(error);
       }
