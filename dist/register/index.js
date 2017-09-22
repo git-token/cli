@@ -43,67 +43,81 @@ var registry = new _index2.default({
   registryUri: 'https://registry.gittoken.io'
 });
 
-var github = void 0,
-    user = void 0,
-    org = void 0,
-    profile = void 0,
-    variables = void 0;
+Register();
 
-_inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.register))).then(function (answers) {
-  variables = (0, _extends3.default)({}, answers);
-  github = new _githubApi2.default({
-    username: answers['GITHUB_USER'],
-    token: answers['GITHUB_TOKEN']
+/**
+ * Encapsulate the program logic to re-enter function upon failure.
+ */
+function Register() {
+  return new _bluebird2.default(function (resolve, reject) {
+    var github = void 0,
+        user = void 0,
+        org = void 0,
+        profile = void 0,
+        variables = void 0;
+
+    _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)(_options.register))).then(function (answers) {
+      variables = (0, _extends3.default)({}, answers);
+      github = new _githubApi2.default({
+        username: answers['GITHUB_USER'],
+        token: answers['GITHUB_TOKEN']
+      });
+
+      user = github.getUser();
+
+      return user.listOrgs();
+    }).then(function (orgs) {
+
+      return _inquirer2.default.prompt([{
+        type: 'list',
+        name: 'organization',
+        message: 'Please select which GitHub organization to register:',
+        choices: orgs.data.map(function (org) {
+          return org.login;
+        }),
+        filter: _filter2.default
+      }]);
+    }).then(function (_ref) {
+      var organization = _ref.organization;
+
+      variables = (0, _extends3.default)({}, variables, {
+        'GITTOKEN_ORGANIZATION': organization
+      });
+
+      return (0, _bluebird.join)(organization, isAdmin({ organization: organization }));
+    }).then(function (data) {
+      if (!data[1]) {
+        console.log('\n          Invalid Authorization!\n\n          Must be an admin of ' + data[0] + ' to register.\n        ');
+        process.exit(1);
+      } else {
+        return _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)((0, _options.token)({ organization: data[0], profile: profile }))));
+      }
+    }).then(function (answers) {
+      variables = (0, _extends3.default)({}, variables, answers);
+
+      return registry.registerToken({
+        github_token: variables['GITHUB_TOKEN'],
+        admin_username: variables['GITHUB_USER'],
+        admin_address: variables['GITTOKEN_ADMIN_ADDRESS'],
+        admin_email: variables['GITTOKEN_ADMIN_EMAIL'],
+        organization: variables['GITTOKEN_ORGANIZATION'],
+        name: variables['GITTOKEN_NAME'],
+        symbol: variables['GITTOKEN_SYMBOL'],
+        decimals: variables['GITTOKEN_DECIMALS']
+      });
+    }).then(function (result) {
+
+      resolve('\n\n        Congratulations! ' + variables['GITTOKEN_NAME'] + ' is registered with GitToken!\n\n        To start using GitToken for ' + variables['GITTOKEN_ORGANIZATION'] + ', you must setup a\n        GitHub webhook service here:\n\n        https://github.com/organizations/' + variables['GITTOKEN_ORGANIZATION'] + '/settings/hooks\n\n        And set the url path to:\n\n        https://webhook.gittoken.io/' + variables['GITTOKEN_ORGANIZATION'] + '\n\n\n\n        Thanks for using GitToken! Happy Coding!\n\n      ');
+    }).catch(function (error) {
+      if (error.response.status == 401) {
+        console.log('Invalid GitHub Personal Access Token. Please retry.');
+        Register();
+      } else {
+        reject(error);
+      }
+    });
   });
-
-  user = github.getUser();
-
-  return user.listOrgs();
-}).then(function (orgs) {
-
-  return _inquirer2.default.prompt([{
-    type: 'list',
-    name: 'organization',
-    message: 'Please select which GitHub organization to register:',
-    choices: orgs.data.map(function (org) {
-      return org.login;
-    }),
-    filter: _filter2.default
-  }]);
-}).then(function (_ref) {
-  var organization = _ref.organization;
-
-  variables = (0, _extends3.default)({}, variables, {
-    'GITTOKEN_ORGANIZATION': organization
-  });
-
-  return (0, _bluebird.join)(organization, isAdmin({ organization: organization }));
-}).then(function (data) {
-  if (!data[1]) {
-    console.log('\n      Invalid Authorization!\n\n      Must be an admin of ' + data[0] + ' to register.\n    ');
-    process.exit(1);
-  } else {
-    return _inquirer2.default.prompt([].concat((0, _toConsumableArray3.default)((0, _options.token)({ organization: data[0], profile: profile }))));
-  }
-}).then(function (answers) {
-  variables = (0, _extends3.default)({}, variables, answers);
-
-  return registry.registerToken({
-    github_token: variables['GITHUB_TOKEN'],
-    admin_username: variables['GITHUB_USER'],
-    admin_address: variables['GITTOKEN_ADMIN_ADDRESS'],
-    admin_email: variables['GITTOKEN_ADMIN_EMAIL'],
-    organization: variables['GITTOKEN_ORGANIZATION'],
-    name: variables['GITTOKEN_NAME'],
-    symbol: variables['GITTOKEN_SYMBOL'],
-    decimals: variables['GITTOKEN_DECIMALS']
-  });
-}).then(function (result) {
-
-  console.log('\n\n    Congratulations! ' + variables['GITTOKEN_NAME'] + ' is registered with GitToken!\n\n    To start using GitToken for ' + variables['GITTOKEN_ORGANIZATION'] + ', you must setup a\n    GitHub webhook service here:\n\n    https://github.com/organizations/' + variables['GITTOKEN_ORGANIZATION'] + '/settings/hooks\n\n    And set the url path to:\n\n    https://webhook.gittoken.io/' + variables['GITTOKEN_ORGANIZATION'] + '\n\n\n\n    Thanks for using GitToken! Happy Coding!\n\n  ');
-}).catch(function (error) {
-  console.log(error);
-});
+}
 
 // Helper Methods
 // TODO Break out into utility methods or class
