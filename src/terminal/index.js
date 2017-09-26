@@ -1,4 +1,4 @@
-const GitTokenTerminal = require('gittoken-terminal').default
+import GitTokenTerminal from 'gittoken-terminal'
 
 const terminal = new GitTokenTerminal({
   title: 'GitToken Terminal',

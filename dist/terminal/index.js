@@ -1,8 +1,12 @@
 'use strict';
 
-var GitTokenTerminal = require('gittoken-terminal').default;
+var _gittokenTerminal = require('gittoken-terminal');
 
-var terminal = new GitTokenTerminal({
+var _gittokenTerminal2 = _interopRequireDefault(_gittokenTerminal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var terminal = new _gittokenTerminal2.default({
   title: 'GitToken Terminal',
   socketUri: 'wss://socket.gittoken.io'
 });
