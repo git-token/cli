@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import GitTokenTerminal from 'gittoken-terminal'
 
 const terminal = new GitTokenTerminal({
