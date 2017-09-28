@@ -1,6 +1,6 @@
 {
   "name": "git-token",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "description": "GitToken CLI Program",
   "bin": {
     "git-token": "./dist/index.js",
@@ -30,7 +30,7 @@
     "gittoken-docker": "0.0.1",
     "gittoken-registry": "0.0.16",
     "gittoken-signer": "0.0.9",
-    "gittoken-terminal": "0.0.11",
+    "gittoken-terminal": "0.0.12",
     "gittoken-webhook-manager": "0.0.3",
     "inquirer": "^3.2.3",
     "json2yaml": "^1.1.0",
