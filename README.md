@@ -1,3 +1,7 @@
+![](https://img.shields.io/badge/Version-Alpha-orange.svg)
+![https://gitter.im/git-token/Lobby](https://img.shields.io/badge/Gitter-Chat-brightgreen.svg?colorB=5504f2) 
+![https://GitToken.org](https://img.shields.io/badge/GitToken-ORG-brightgreen.svg)
+
 # GitToken Command Line Interface
 
 The GitToken CLI is the primary interface to GitToken services. The two main services it supports are registering an organization and viewing data related to organizations on the GitToken network.
