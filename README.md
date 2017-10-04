@@ -22,6 +22,9 @@ Using NPM or Yarn run `npm i -g git-token@alpha` or `yarn global add git-token@a
 
 Register by running `git token register` in your terminal.
 
+![Register](https://github.com/git-token/media/blob/master/gifs/git-token-register.gif?raw=true)
+
+
 `git token rebase` will eventually be used to migrate contracts when new versions of GitToken contracts are released or when migrating contracts to different blockchain networks.
 
 ## GitToken Terminal
@@ -31,3 +34,5 @@ The GitToken Terminal listens to contract events in real-time for a selected org
 The GitToken Terminal is automatically installed with the GitToken CLI package. To access the terminal run
 
 `git token terminal`
+
+![Terminal](https://github.com/git-token/landing-page/blob/master/src/assets/images/git-token-terminal.gif?raw=true)
