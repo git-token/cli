@@ -12,7 +12,12 @@
 
 # GitToken Command Line Interface
 
-The GitToken CLI is the primary interface to GitToken services. The two main services it supports are registering an organization and viewing data related to organizations on the GitToken network.
+The GitToken CLI is the primary interface for setting up and interacting with GitToken services. 
+
+Current Programs in the CLI:
+
+- `git token register` For registering project with https://webhook.gittoken.io
+- `git token terminal` For reviewing all GitToken registered organizations
 
 ## Installing GitToken CLI
 
