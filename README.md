@@ -18,6 +18,8 @@ The GitToken CLI is the primary interface to GitToken services. The two main ser
 
 Using NPM or Yarn run `npm i -g git-token@alpha` or `yarn global add git-token@alpha`
 
+![Install](https://github.com/git-token/landing-page/blob/master/src/assets/images/git-token-install.gif?raw=true)
+
 ## Registering an Organization
 
 Register by running `git token register` in your terminal.
