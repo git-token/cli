@@ -1,3 +1,6 @@
+
+![GitToken](https://github.com/git-token/media/blob/master/png/git_token_logo.png?raw=true?style=GitToken)
+
 ![](https://img.shields.io/badge/Version-Alpha-orange.svg)
 ![https://gitter.im/git-token/Lobby](https://img.shields.io/badge/Gitter-Chat-brightgreen.svg?colorB=5504f2) 
 ![https://GitToken.org](https://img.shields.io/badge/GitToken-ORG-brightgreen.svg)
